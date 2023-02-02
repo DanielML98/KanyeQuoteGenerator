@@ -23,16 +23,14 @@ class ViewController: UIViewController {
   }
   
   override func viewDidLayoutSubviews() {
-//    NetworkManager.fetchQuote { [unowned self] result in
-//      switch result {
-//      case .success(let quote):
-//        DispatchQueue.main.async {
-//          self.quoteLabel.text = quote
-//        }
-//      case .failure(_):
-//        print("Oh, oh, something went wrong")
-//      }
-//    }
+    Task {
+      do {
+        let quote = try await NetworkManager.fetchQuote()
+        self.quoteLabel.text = quote
+      } catch {
+        print(error)
+      }
+    }
   }
 }
 
